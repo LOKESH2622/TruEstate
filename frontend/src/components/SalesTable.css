@@ -1,0 +1,101 @@
+.table-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.sales-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sales-table thead {
+  background: var(--bg-secondary);
+}
+
+.sales-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.sales-table tbody tr {
+  transition: background 0.15s;
+}
+
+.sales-table tbody tr:hover {
+  background: var(--bg-hover);
+}
+
+.sales-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.9rem;
+}
+
+.sales-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.transaction-id { color: var(--text-secondary); }
+.date { color: var(--text-secondary); }
+.customer-id { color: var(--accent-primary); font-weight: 500; }
+.customer-name { color: var(--text-primary); }
+.gender { color: var(--text-secondary); }
+.age { color: var(--text-secondary); }
+.category { color: var(--accent-secondary); }
+.quantity { color: var(--text-secondary); }
+
+.phone-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.phone-number { color: var(--text-secondary); }
+
+.copy-btn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 4px;
+  opacity: 0.5;
+}
+
+.copy-btn:hover {
+  background: var(--bg-hover);
+  color: var(--accent-primary);
+  opacity: 1;
+}
+
+.sales-table tr:hover .copy-btn { opacity: 1; }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-hover) 50%, var(--bg-secondary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  height: 20px;
+  width: 80px;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@media (max-width: 1200px) {
+  .table-wrapper { overflow-x: auto; }
+  .sales-table { min-width: 900px; }
+}
