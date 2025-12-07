@@ -1,7 +1,3 @@
 {
-  "framework": "vite",
-  "installCommand": "npm install",
-  "buildCommand": "npm exec vite build",
-  "outputDirectory": "dist"
+  "framework": "vite"
 }
-
