@@ -19,7 +19,6 @@ Thumbs.db
 coverage/
 *.local
 
-# Large data files
-*.csv
-backend/data/*.csv
-truestate_assignment_dataset*.csv
+# Large data files (root level only)
+/truestate_assignment_dataset*.csv
+/backend/data/*.csv

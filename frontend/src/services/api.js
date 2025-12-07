@@ -1,8 +1,3 @@
-import axios from 'axios';
-
-const IS_PRODUCTION = import.meta.env.PROD;
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
-
 let cachedData = null;
 
 const parseCSV = (text) => {
@@ -164,54 +159,42 @@ const calculateStats = (data) => {
 };
 
 export const fetchSales = async (params) => {
-  if (IS_PRODUCTION) {
-    const allData = await loadCSVData();
-    let filtered = applyFilters(allData, params);
-    const stats = calculateStats(filtered);
-    filtered = applySorting(filtered, params.sortBy || 'date', params.sortOrder || 'desc');
-    
-    const page = parseInt(params.page) || 1;
-    const limit = parseInt(params.limit) || 10;
-    const totalItems = filtered.length;
-    const totalPages = Math.ceil(totalItems / limit) || 1;
-    const start = (page - 1) * limit;
-    const paginatedData = filtered.slice(start, start + limit);
-    
-    return {
-      data: paginatedData,
-      pagination: { currentPage: page, totalPages, totalItems, itemsPerPage: limit, hasNextPage: page < totalPages, hasPrevPage: page > 1 },
-      stats
-    };
-  }
+  const allData = await loadCSVData();
+  let filtered = applyFilters(allData, params);
+  const stats = calculateStats(filtered);
+  filtered = applySorting(filtered, params.sortBy || 'date', params.sortOrder || 'desc');
   
-  const response = await axios.get(`${API_BASE_URL}/sales`, { params });
-  return response.data;
+  const page = parseInt(params.page) || 1;
+  const limit = parseInt(params.limit) || 10;
+  const totalItems = filtered.length;
+  const totalPages = Math.ceil(totalItems / limit) || 1;
+  const start = (page - 1) * limit;
+  const paginatedData = filtered.slice(start, start + limit);
+  
+  return {
+    data: paginatedData,
+    pagination: { currentPage: page, totalPages, totalItems, itemsPerPage: limit, hasNextPage: page < totalPages, hasPrevPage: page > 1 },
+    stats
+  };
 };
 
 export const fetchFilterOptions = async () => {
-  if (IS_PRODUCTION) {
-    const data = await loadCSVData();
-    const regions = [...new Set(data.map(d => d.customerRegion).filter(Boolean))].sort();
-    const genders = [...new Set(data.map(d => d.gender).filter(Boolean))].sort();
-    const categories = [...new Set(data.map(d => d.productCategory).filter(Boolean))].sort();
-    const paymentMethods = [...new Set(data.map(d => d.paymentMethod).filter(Boolean))].sort();
-    const allTags = new Set();
-    data.forEach(d => { if (d.tags) d.tags.split(',').map(t => t.trim()).filter(Boolean).forEach(t => allTags.add(t)); });
-    const ages = data.map(d => d.age).filter(a => !isNaN(a));
-    return {
-      regions, genders, categories, tags: [...allTags].sort(), paymentMethods,
-      ageRange: { min: Math.min(...ages), max: Math.max(...ages) },
-      dateRange: { min: null, max: null }
-    };
-  }
-  
-  const response = await axios.get(`${API_BASE_URL}/sales/filters`);
-  return response.data;
+  const data = await loadCSVData();
+  const regions = [...new Set(data.map(d => d.customerRegion).filter(Boolean))].sort();
+  const genders = [...new Set(data.map(d => d.gender).filter(Boolean))].sort();
+  const categories = [...new Set(data.map(d => d.productCategory).filter(Boolean))].sort();
+  const paymentMethods = [...new Set(data.map(d => d.paymentMethod).filter(Boolean))].sort();
+  const allTags = new Set();
+  data.forEach(d => { if (d.tags) d.tags.split(',').map(t => t.trim()).filter(Boolean).forEach(t => allTags.add(t)); });
+  const ages = data.map(d => d.age).filter(a => !isNaN(a));
+  return {
+    regions, genders, categories, tags: [...allTags].sort(), paymentMethods,
+    ageRange: { min: Math.min(...ages), max: Math.max(...ages) },
+    dateRange: { min: null, max: null }
+  };
 };
 
 export const fetchSaleById = async (id) => {
-  const response = await axios.get(`${API_BASE_URL}/sales/${id}`);
-  return response.data;
+  const data = await loadCSVData();
+  return data.find(item => item.id === id || item.transactionId === id);
 };
-
-export default axios;
