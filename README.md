@@ -1,77 +1,60 @@
 # TruEstate - Retail Sales Management System
 
-## Overview
+## 1. Overview
 
-A full-stack Retail Sales Management System built with React and Node.js/Express. The application provides comprehensive search, filtering, sorting, and pagination capabilities for managing retail sales data. Features a modern, responsive UI with real-time data updates and efficient state management.
+A full-stack Retail Sales Management System that demonstrates essential software engineering capabilities across both frontend and backend components. The system supports advanced Search, Filtering, Sorting, and Pagination functionalities for managing retail sales data. Built with clean, maintainable, and modular architecture following professional coding standards.
 
-## Tech Stack
+## 2. Tech Stack
 
-### Frontend
-- React 18 with hooks for state management
-- Vite build tool and development server
-- Axios HTTP client for API requests
-- CSS3 with CSS variables and animations
+**Frontend:**
+- React 18
+- Vite
+- Axios
+- CSS3
 
-### Backend
-- Node.js runtime environment
-- Express.js web framework
-- csv-parser for CSV file parsing
+**Backend:**
+- Node.js
+- Express.js
+- csv-parser
 
-## Dataset Setup
+## 3. Search Implementation Summary
 
-The CSV dataset is not included in this repository due to GitHub's file size limits.
-
-**To use the application:**
-1. Download the dataset file `truestate_assignment_dataset (1).csv`
-2. Place it in the project root folder: `C:\TruEstate\truestate_assignment_dataset (1).csv`
-3. The backend will automatically load the data on startup
-
-## Search Implementation Summary
-
-Full-text search across Customer Name and Phone Number fields:
+- Full-text search on Customer Name and Phone Number fields
 - Case-insensitive matching
-- Debounced input (300ms delay)
-- Real-time results update
-- State preservation with filters and sorting
-- Backend processing for performance
+- Debounced input with 300ms delay to optimize API calls
+- Works alongside active filters and sorting
+- Server-side processing for performance
 
-## Filter Implementation Summary
+## 4. Filter Implementation Summary
 
 Multi-select and range-based filtering:
-- Customer Region - Multi-select dropdown
-- Gender - Multi-select checkboxes
-- Age Range - Min/Max numeric inputs
-- Product Category - Multi-select checkboxes
-- Tags - Clickable tag chips
-- Payment Method - Multi-select checkboxes
-- Date Range - From/To date pickers
+- Customer Region (multi-select)
+- Gender (multi-select)
+- Age Range (min/max inputs)
+- Product Category (multi-select)
+- Tags (multi-select chips)
+- Payment Method (multi-select)
+- Date Range (from/to date pickers)
 
-All filters work independently and in combination.
+Filters work independently and in combination with state preservation.
 
-## Sorting Implementation Summary
+## 5. Sorting Implementation Summary
 
-Sorting available for key data fields:
-- Date - Newest First / Oldest First
-- Quantity - High to Low / Low to High
-- Customer Name - A to Z / Z to A
-- Amount - High to Low / Low to High
+- Date (Newest First / Oldest First)
+- Quantity (High to Low / Low to High)
+- Customer Name (A-Z / Z-A)
 
-## Pagination Implementation Summary
+Sorting preserves active search and filter states.
 
-Efficient pagination with 10 items per page:
-- Previous/Next navigation
-- Page number display with ellipsis
-- State preservation across operations
-- Result count display
-- Auto reset to page 1 on filter/search change
+## 6. Pagination Implementation Summary
 
-## Setup Instructions
+- Page size: 10 items per page
+- Previous/Next navigation with disabled states at boundaries
+- Page number display with ellipsis for large datasets
+- Retains active search, filter, and sort states
+- Auto resets to page 1 when filters or search change
 
-### Prerequisites
-- Node.js 18+ installed
-- npm package manager
-
-### Installation
+## 7. Setup Instructions
 
 1. Clone the repository:
 ```bash
@@ -79,7 +62,7 @@ git clone https://github.com/LOKESH2622/TruEstate.git
 cd TruEstate
 ```
 
-2. Install all dependencies:
+2. Install dependencies:
 ```bash
 npm install
 cd backend && npm install
@@ -87,21 +70,14 @@ cd ../frontend && npm install
 cd ..
 ```
 
-3. Add the dataset file:
+3. Add the dataset:
    - Place `truestate_assignment_dataset (1).csv` in the project root folder
 
-4. Start the development servers:
+4. Start the application:
 ```bash
 npm run dev
 ```
 
-5. Access the application:
+5. Access:
    - Frontend: http://localhost:3000
-   - Backend API: http://localhost:5000
-
-### Production Build
-
-```bash
-npm run build
-npm start
-```
+   - Backend: http://localhost:5000
